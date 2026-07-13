@@ -37,10 +37,15 @@ app.use('/api/public', publicRouter);
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok', version: '2.0.0' }));
 
-// Inicializa
-runMigrations().then(() => {
-  app.listen(PORT, () => console.log(`🛡️ nuve. API rodando em http://localhost:${PORT}`));
-}).catch(err => {
-  console.error('Falha na migração:', err);
-  process.exit(1);
-});
+// Apenas escuta a porta localmente se NÃO estiver no Vercel (onde process.env.VERCEL é definido)
+if (!process.env.VERCEL) {
+  runMigrations().then(() => {
+    app.listen(PORT, () => console.log(`🛡️ nuve. API rodando em http://localhost:${PORT}`));
+  }).catch(err => {
+    console.error('Falha na migração:', err);
+    process.exit(1);
+  });
+}
+
+// Exportar app para o Vercel Serverless Functions
+export default app;
