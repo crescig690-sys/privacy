@@ -2,11 +2,11 @@
   "name": "nuve-painel",
   "version": "1.0.0",
   "private": true,
-  "workspaces": ["api", "web"],
+  "workspaces": ["backend", "web"],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=api\" \"npm run dev --workspace=web\"",
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=web\"",
     "build": "npm run build --workspace=web",
-    "start": "npm run start --workspace=api"
+    "start": "npm run start --workspace=backend"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
